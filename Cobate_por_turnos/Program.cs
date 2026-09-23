@@ -26,48 +26,200 @@ Movimiento de cada turno
 
 int jugador1 = 28;
 int jugador2 = 28;
+int curacion = 5;
 
 Console.WriteLine("El jugador 1 tiene vida de " + jugador1);
 Console.WriteLine("El jugador 2 tiene vida de " + jugador2);
 
-// true es que va el 1
-bool turno;
+Random random = new Random(); 
 
-if (turno == true)
+bool primerTurno = random.Next(0, 2) == 0;
+
+if (primerTurno == true)
 {
     do
     {
-        int ataque1 = 7;
         
         Console.WriteLine("JUGADOR UNO: ¿Deseas atacar o curar?, 1 para atacar, 2 para curar");
         string decision1 = Console.ReadLine();
-        bool conversion = int.TryParse(decision1, out int decision1Int);
+        bool conversion1 = int.TryParse(decision1, out int decision1Int);
 
-        if (decision1Int == 1) ;
+        if (conversion1 == true)
         {
-            Console.WriteLine("El jugador 1 atacó al jugador 2 con una vida restante de: " + (jugador2 - ataque1));
+            switch (decision1Int)
+            {
+                case 1:
+                    int ataque = random.Next(1, 11);
+                    
+                    Console.WriteLine("El jugador1 realizo un ataque de " + ataque + " a el jugador2");
+                    Console.WriteLine("Vida del jugador2:" + (jugador2 - ataque));
+                    break;
+
+                case 2:
+                    if (jugador1 == 28)
+                    {
+                        Console.WriteLine("El jugador1 permanece con 28 de vida");
+                    }
+                    else
+                    {
+                        Console.WriteLine("El jugador1 se curo, su vida es de: " + (jugador1 + curacion ));
+                    }
+                    break;
+
+                default:
+                    Console.WriteLine("Ingresa un valor numérico");
+                    break;
+            }
         }
+        
+        else 
+        {
+            // Las cadenas no son validas
+            Console.WriteLine("Ingresa un valor numérico.");
+        }
+    
+        
+        
+        Console.WriteLine("JUGADOR DOS: ¿Deseas atacar o curar?, 1 para atacar, 2 para curar");
+        string decision2 = Console.ReadLine();
+        bool conversion2 = int.TryParse(decision2, out int decision2Int);
+
+        if (conversion2 == true)
+        {
+            switch (decision2Int)
+            {
+                case 1:
+                    int ataque = random.Next(1, 11);
+                    
+                    Console.WriteLine("El jugador2 realizo un ataque de " + ataque + " a el jugador1");
+                    Console.WriteLine("Vida del jugador1:" + (jugador1 - ataque));
+                    break;
+
+                case 2:
+                    if (jugador2 == 28)
+                    {
+                        Console.WriteLine("El jugador2 permanece con 28 de vida");
+                    }
+                    else
+                    {
+                        Console.WriteLine("El jugador2 se curo, su vida es de: " + (jugador2 + curacion ));
+                    }
+                    break;
+
+                default:
+                    Console.WriteLine("Ingresa un valor numérico");
+                    break;
+            }
+        }
+        
         else
         {
-            Console.WriteLine("Escribe un valor valido"); 
+            // Las cadenas no son validas
+            Console.WriteLine("Ingresa un valor numérico.");
         }
-        
-        if (decision1Int == 2) ;
-        {
-            bool curacionVal = jugador2 < 28;
-            int curacion = 7;
-            Console.WriteLine("La vida del jugador es: " + (jugador1 + curacion));
-        }
-        
-        int ataque2 = 7;
-        
-        
-    } while (jugador1 > 0 || jugador2 > 0);
+    } while (jugador1>0 || jugador2 >0);
+
+    if (jugador1 > jugador2)
+    {
+        Console.WriteLine("El jugador 1 es el ganador");
+    }
+    else
+    {
+        Console.WriteLine("El jugador 2 es el ganador");
+    }
+    
 }
-else (turno == false)
-
-do
+else 
 {
-      
+do
+    {
+        
+        Console.WriteLine("JUGADOR DOS: ¿Deseas atacar o curar?, 1 para atacar, 2 para curar");
+        string decision2 = Console.ReadLine();
+        bool conversion2 = int.TryParse(decision2, out int decision2Int);
 
-}while (jugador1 > 0 || jugador2 > 0);
+        if (conversion2 == true)
+        {
+            switch (decision2Int)
+            {
+                case 1:
+                    int ataque = random.Next(1, 11);
+                    
+                    Console.WriteLine("El jugador2 realizo un ataque de " + ataque + " a el jugador1");
+                    Console.WriteLine("Vida del jugador1:" + (jugador1 - ataque));
+                    break;
+
+                case 2:
+                    if (jugador2 == 28)
+                    {
+                        Console.WriteLine("El jugador2 permanece con 28 de vida");
+                    }
+                    else
+                    {
+                        Console.WriteLine("El jugador2 se curo, su vida es de: " + (jugador2 + curacion ));
+                    }
+                    break;
+
+                default:
+                    Console.WriteLine("Ingresa un valor numérico");
+                    break;
+            }
+        }
+        
+        else
+        {
+            // Las cadenas no son validas
+            Console.WriteLine("Ingresa un valor numérico.");
+        }
+        
+        
+        Console.WriteLine("JUGADOR UNO: ¿Deseas atacar o curar?, 1 para atacar, 2 para curar");
+        string decision1 = Console.ReadLine();
+        bool conversion1 = int.TryParse(decision1, out int decision1Int);
+
+        if (conversion1 == true)
+        {
+            switch (decision1Int)
+            {
+                case 1:
+                    int ataque = random.Next(1, 11);
+                    
+                    Console.WriteLine("El jugador1 realizo un ataque de " + ataque + " a el jugador2");
+                    Console.WriteLine("Vida del jugador2:" + (jugador2 - ataque));
+                    break;
+
+                case 2:
+                    if (jugador1 == 28)
+                    {
+                        Console.WriteLine("El jugador1 permanece con 28 de vida");
+                    }
+                    else
+                    {
+                        Console.WriteLine("El jugador1 se curo, su vida es de: " + (jugador1 + curacion ));
+                    }
+                    break;
+
+                default:
+                    Console.WriteLine("Ingresa un valor numérico");
+                    break;
+            }
+        }
+        
+        else
+        {
+            // Las cadenas no son validas
+            Console.WriteLine("Ingresa un valor numérico.");
+        }
+    } while (jugador1>0 || jugador2 >0);
+
+    if (jugador1 > jugador2)
+    {
+        Console.WriteLine("El jugador 1 es el ganador");
+    }
+    else
+    {
+        Console.WriteLine("El jugador 2 es el ganador");
+    }
+
+}
+
