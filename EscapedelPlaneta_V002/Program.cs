@@ -26,14 +26,20 @@ const float ESCUDO_MAX              = 100f;
 const float BONUS_ESCUDO_ZONA_CALMA = 1.2f;
 
 // Valores temporales para trabajar con resultados predecibles.// pasarlos a rendoms // descomponerlas en min y max
-const int DISTANCIA_ASCENSO_MIN      = 5;
+const int DISTANCIA_ASCENSO_MIN     = 5;
 const int DISTANCIA_ASCENSO_MAX     = 10;
-const int COMBUSTIBLE_ASCENSO_MIN    = 3;
-const int COMBUSTIBLE_ASCENSO_MAX    = 7;
-const int DISTANCIA_PERDIDA_ESPERAR  = 5;// tarea estos cuatro
-const int ESCUDO_RECUPERADO         = 10;
-const int DMG_ESCOMBRO_ESCOMBRO     = 5;
-const int COMBUSTIBLE_ESQUIVAR      = 6; // verificar si puedo esquivar
+const int COMBUSTIBLE_ASCENSO_MIN   = 6;
+const int COMBUSTIBLE_ASCENSO_MAX   = 7;
+
+// tarea 
+const int DISTANCIA_PERDIDA_ESPERAR_MIN = 5;
+const int DISTANCIA_PERDIDA_ESPERAR_MAX = 10;
+const int ESCUDO_RECUPERADO_MIN         = 5;
+const int ESCUDO_RECUPERADO_MAX         = 10;
+const int DMG_ESCOMBRO_ESCOMBRO_MIN     = 5;
+const int DMG_ESCOMBRO_ESCOMBRO_MAX     = 10;
+const int COMBUSTIBLE_ESQUIVAR_MIN      = 5; // verificar / validar si se puede
+const int COMBUSTIBLE_ESQUIVAR_MAX      = 10;
 
 // Variables de estado
 var distanciaRecorrida = 0;
@@ -59,6 +65,9 @@ while (distanciaRecorrida < DISTANCIA_AL_ESPACIO && combustibleActual >= COMBUST
     // Selección de la acción del jugador
     string opcion;
     bool   esOpcionValida;
+    
+    var   combustibleEsquivar = rng.Next(COMBUSTIBLE_ESQUIVAR_MIN, COMBUSTIBLE_ESQUIVAR_MAX + 1);
+    
     do
     {
         if (esZonaCalma)
@@ -75,7 +84,7 @@ while (distanciaRecorrida < DISTANCIA_AL_ESPACIO && combustibleActual >= COMBUST
             Console.WriteLine("1. Ascender");
             Console.WriteLine("2. Esperar");
 
-            if (combustibleActual >= COMBUSTIBLE_ESQUIVAR)
+            if (combustibleActual >= combustibleEsquivar)
             {
                 Console.WriteLine("3. Esquivar");
             }
@@ -95,7 +104,7 @@ while (distanciaRecorrida < DISTANCIA_AL_ESPACIO && combustibleActual >= COMBUST
 
         esOpcionValida = opcion == "1" ||
                          opcion == "2" ||
-                         (esZonaEscombros && combustibleActual >= COMBUSTIBLE_ESQUIVAR && opcion == "3");
+                         (esZonaEscombros && combustibleActual >= combustibleEsquivar && opcion == "3");
 
         if (!esOpcionValida)
         {
@@ -109,9 +118,11 @@ while (distanciaRecorrida < DISTANCIA_AL_ESPACIO && combustibleActual >= COMBUST
         {
             if (esZonaEscombros)
             {
-                float dmgEscudo = DMG_ESCOMBRO_ESCOMBRO;
-                dmgEscudo = Math.Min(dmgEscudo, escudoActual);
+                
+                var   dmgEscudo = rng.Next(DMG_ESCOMBRO_ESCOMBRO_MIN, DMG_ESCOMBRO_ESCOMBRO_MAX + 1);
                 escudoActual -= dmgEscudo;
+                var dmgEscudoReal = Math.Min(dmgEscudo, escudoActual);
+                escudoActual -= dmgEscudoReal;
 
                 Console.WriteLine("¡Has recibido " + dmgEscudo + " unidades de daño en el escudo!");
 
@@ -147,32 +158,32 @@ while (distanciaRecorrida < DISTANCIA_AL_ESPACIO && combustibleActual >= COMBUST
         case "2":
         {
             var bonus            = esZonaCalma ? BONUS_ESCUDO_ZONA_CALMA : 1f;
-            var escudoRecuperado = ESCUDO_RECUPERADO * bonus;
-            escudoRecuperado =  Math.Min(escudoRecuperado, ESCUDO_MAX - escudoActual);
+            var escudoRecuperado =  rng.Next(ESCUDO_RECUPERADO_MIN, ESCUDO_RECUPERADO_MAX + 1);
             escudoActual     += escudoRecuperado;
             Console.WriteLine("¡Has recuperado " + escudoRecuperado + " unidades de escudo!");
 
             if (esZonaEscombros)
             {
-                float dmgEscudo = DMG_ESCOMBRO_ESCOMBRO;
-                dmgEscudo    =  Math.Min(dmgEscudo, escudoActual);
-                escudoActual -= dmgEscudo;
+                var   dmgEscudo = rng.Next(DMG_ESCOMBRO_ESCOMBRO_MIN, DMG_ESCOMBRO_ESCOMBRO_MAX + 1);
+                var dmgEscudoReal    =  Math.Min(dmgEscudo, escudoActual);
+                escudoActual -= dmgEscudoReal;
 
                 Console.WriteLine("¡Has recibido " + dmgEscudo + " unidades de daño en el escudo!");
             }
 
-            var distanciaPerdida = Math.Min(DISTANCIA_PERDIDA_ESPERAR, distanciaRecorrida);
+            var distanciaPerdida = rng.Next(DISTANCIA_PERDIDA_ESPERAR_MIN, DISTANCIA_PERDIDA_ESPERAR_MAX + 1);
+            distanciaPerdida = Math.Min(distanciaPerdida, distanciaRecorrida);
             distanciaRecorrida -= distanciaPerdida;
             Console.WriteLine("Has perdido " + distanciaPerdida + " unidades de distancia.");
-
+            
             break;
         }
         case "3":
         {
-            combustibleActual -= COMBUSTIBLE_ESQUIVAR;
+            combustibleActual -= combustibleEsquivar;
 
             Console.WriteLine("Has esquivado un obstáculo.");
-            Console.WriteLine("Has utilizado " + COMBUSTIBLE_ESQUIVAR + " unidades de combustible.");
+            Console.WriteLine("Has utilizado " + combustibleEsquivar + " unidades de combustible.");
             break;
         }
     }
