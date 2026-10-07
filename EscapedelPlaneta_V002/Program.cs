@@ -119,8 +119,7 @@ while (distanciaRecorrida < DISTANCIA_AL_ESPACIO && combustibleActual >= COMBUST
             if (esZonaEscombros)
             {
                 
-                var   dmgEscudo = rng.Next(DMG_ESCOMBRO_ESCOMBRO_MIN, DMG_ESCOMBRO_ESCOMBRO_MAX + 1);
-                escudoActual -= dmgEscudo;
+                var dmgEscudo = rng.Next(DMG_ESCOMBRO_ESCOMBRO_MIN, DMG_ESCOMBRO_ESCOMBRO_MAX + 1);
                 var dmgEscudoReal = Math.Min(dmgEscudo, escudoActual);
                 escudoActual -= dmgEscudoReal;
 
@@ -133,9 +132,9 @@ while (distanciaRecorrida < DISTANCIA_AL_ESPACIO && combustibleActual >= COMBUST
                 }
             }
 
-            var combustibleReal = rng.Next(COMBUSTIBLE_ASCENSO_MIN, COMBUSTIBLE_ASCENSO_MAX + 1);
+            var combustibleAscReal = rng.Next(COMBUSTIBLE_ASCENSO_MIN, COMBUSTIBLE_ASCENSO_MAX + 1);
 
-            if (combustibleReal > combustibleActual)
+            if (combustibleAscReal > combustibleActual)
             {
                 Console.WriteLine("No tienes suficiente combustible");
             }
@@ -147,10 +146,10 @@ while (distanciaRecorrida < DISTANCIA_AL_ESPACIO && combustibleActual >= COMBUST
                 distanciaRecorrida += distanciaReal;
 
 
-                combustibleActual -= combustibleReal;
+                combustibleActual -= combustibleAscReal;
 
                 Console.WriteLine("Has ascendido " + distanciaReal + " unidades.");
-                Console.WriteLine("Has utilizado " + combustibleReal + " unidades de combustible.");
+                Console.WriteLine("Has utilizado " + combustibleAscReal + " unidades de combustible.");
             }
 
             break;
