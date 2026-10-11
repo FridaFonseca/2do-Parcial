@@ -58,20 +58,50 @@ for (var i = 0; i < inventory.Length; ++i)
 // notas provicionales de clase :v
 // listas puede agregar y quitar posiciones (vacia sin capacidad, vacia con capacidad, con valores completa y expresion)
 // formas de iniciar una lista
-List<string> enemies = new List<string>(5);  // o como en el arreglo
-
+// List<string> enemies = new List<string>(5);  // o como en el arreglo  <tipo de dato>
+// <1er dato cclave, 2do valor > <string, int> no muestrt las claves solo el dato
 // LSTA.Add(valor); agregar elementos , add va modificando count y eventualmente capacity 
 // LISTA.Remove(valor); eliminar valor , si son valores exactament eiguales elimina el primero que encuentra
 // LISTA.RemoveAt(idx); elimina desde el count/indice de la lista 
 // LISTA.Clear(); limpiar la lista(indices) manteniendo la capacidad
 
+
 // LISTA {indice} obtener elementos 
 //  recorrer igual que un arreglo en lugar de length/count
-enemies.Add("Orc");
-enemies.Remove("Goblin");
-enemies.Count;
+//enemies.Add("Orc");
+//enemies.Remove("Goblin");
+//enemies.Count;
 
 //indices para remplazar elementos 
     // no se puede creas posicion remplazanndo con indice que no existe
-foreach (string enemy in enemies) { }
+//foreach (string enemy in enemies) { }
 // arreglos longitud/length = conteo de listas, capacidad por c#
+
+﻿Dictionary<string, int> items = new()
+    {
+        { "Espada", 25 },
+        { "Arco", 15 },
+        { "Hacha", 35 },
+    };
+
+    Console.WriteLine(items["Espada"]);
+    Console.WriteLine(items["Hacha"]);
+
+    items["Arco"] = 20;
+
+    Console.WriteLine(items["Arco"]);
+
+    if(items.ContainsKey("Hoz")) {
+        Console.WriteLine("DMG Hoz: " + items["Hoz"]);
+    }
+
+    if(items.TryGetValue("Hacha", out int dmg))
+    {
+        Console.WriteLine($"DMG hacha: {dmg}");
+    }
+
+    Console.WriteLine(items.Count);
+    
+    // comprobar si llave existe if(nombreLista.ContainsKey{"llave"});
+    // diccionarios siemrpe con claves y valores , los valores son repetibles entre claves epro las clave son unicas
+    // conteo cantidad de elementos, capacidad se puede crecer y clave, no se puede busscar en base a la posicion, solo sabiendo la clave

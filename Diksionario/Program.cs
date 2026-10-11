@@ -25,7 +25,7 @@ if (items.ContainsKey ("cuchillo") == false)
 if (items.TryGetValue("Hoz", out int dmgHoz)) 
 { 
     
-    Console.WriteLine("DMG Hoz: + items [dmgHoz]");
+    Console.WriteLine("DMG Hoz: "+ items[dmgHoz]);
 }
 
 
